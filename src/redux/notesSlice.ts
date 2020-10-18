@@ -1,12 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import API, { GraphQLResult } from '@aws-amplify/api'
 import { listNotes } from 'graphql/queries'
-import { ListNotesQuery } from 'API'
+import { ListNotesQuery, Note } from 'API'
 import { NotesState } from 'redux/types'
-import { createNote, deleteNote } from 'graphql/mutations'
+import { createNote, deleteNote, updateNote } from 'graphql/mutations'
+import { v4 as uuidv4 } from 'uuid'
+import faker from 'faker'
 
 type RemoveNoteProps = {
   id: string
+}
+
+type UpdateNoteProps = {
+  note: Note
 }
 
 export const fetchNotes = createAsyncThunk('notes/fetch', async () => {
@@ -22,7 +28,8 @@ export const createNewNote = createAsyncThunk(
   //* underscore since no payload for now
   async (_, thunkAPI) => {
     const note = {
-      name: 'this is my first note',
+      name: faker.lorem.sentence(5),
+      id: uuidv4(),
     }
     //* optimistic response
     thunkAPI.dispatch(notesSlice.actions.add(note))
@@ -30,15 +37,31 @@ export const createNewNote = createAsyncThunk(
   }
 )
 
+export const markCompleted = createAsyncThunk(
+  'notes/update',
+  async ({ note }: UpdateNoteProps, thunkAPI) => {
+    let newNote = {
+      completed: true,
+      id: note.id,
+    }
+    const { id } = newNote
+    id && thunkAPI.dispatch(notesSlice.actions.markCompleted({ id }))
+    await API.graphql({
+      query: updateNote,
+      variables: { input: newNote },
+    })
+  }
+)
+
 export const removeNote = createAsyncThunk(
   'notes/remove',
   async ({ id }: RemoveNoteProps, thunkAPI) => {
+    thunkAPI.dispatch(notesSlice.actions.remove({ id }))
     const response: any = await API.graphql({
       query: deleteNote,
       variables: { input: { id } },
     })
     console.log(response)
-    thunkAPI.dispatch(notesSlice.actions.remove({ id }))
     return response
   }
 )
@@ -56,7 +79,18 @@ export const notesSlice = createSlice({
     add: (state, action) => {
       state.data.push(action.payload)
     },
-    remove: (state, action: PayloadAction<{ id: string }>) => {},
+    markCompleted: (state, { payload }: PayloadAction<{ id: string }>) => {
+      const index = state.data.findIndex((note) => note.id === payload.id)
+      if (index !== -1) {
+        state.data[index].completed = true
+      }
+    },
+    remove: (state, action: PayloadAction<{ id: string }>) => {
+      return {
+        ...state,
+        data: state.data.filter((n) => n.id !== action.payload.id),
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchNotes.pending, (state) => {
@@ -69,6 +103,11 @@ export const notesSlice = createSlice({
     builder.addCase(fetchNotes.fulfilled, (state, action) => {
       state.data.push(...action.payload)
       state.isLoading = false
+    })
+
+    builder.addCase(markCompleted.rejected, (state, action) => {
+      state.isLoading = false
+      state.hasErrors = action.error
     })
   },
 })

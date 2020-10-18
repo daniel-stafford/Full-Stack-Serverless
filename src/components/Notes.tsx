@@ -3,8 +3,14 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
-import { createNewNote, fetchNotes, removeNote } from 'redux/notesSlice'
+import {
+  createNewNote,
+  fetchNotes,
+  markCompleted,
+  removeNote,
+} from 'redux/notesSlice'
 import { RootState } from 'redux/types'
+import { Note } from 'API'
 
 export function Notes() {
   console.log('note is')
@@ -19,26 +25,34 @@ export function Notes() {
   }
 
   function handleDelete(id: string | null) {
-    if (id) dispatch(removeNote({ id }))
+    id && dispatch(removeNote({ id }))
   }
 
-  const notes = useSelector((state: RootState) => state.notes.data)
+  function handleUpdate(note: Note | null) {
+    note && dispatch(markCompleted({ note }))
+  }
 
-  console.log('notes from useSelector', notes.length)
+  const notesState = useSelector((state: RootState) => state.notes)
+  const { isLoading } = notesState
+  const notesData = notesState.data
 
   function renderNotes() {
-    if (notes.length === 0) return <div>Loading...j</div>
-    return notes.map((n) => (
+    if (isLoading) return <div>Loading...</div>
+    if (notesData.length === 0) return <div>Add a note!</div>
+    return notesData.map((n) => (
       <div key={uuidv4()}>
-        {n.id}
+        {n.name}
+        {console.log('n.completed', n.completed)}
+        {n.completed && 'is completed'}
         <button onClick={() => handleDelete(n.id)}>Delete</button>
+        <button onClick={() => handleUpdate(n)}>Mark Completed</button>
       </div>
     ))
   }
 
   return (
     <div>
-      <button onClick={handleCreate}>Make another note</button>
+      <button onClick={handleCreate}>Generate a random lorem ipsum note</button>
       {renderNotes()}
     </div>
   )
