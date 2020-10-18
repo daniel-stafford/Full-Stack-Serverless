@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -11,13 +11,15 @@ import {
 } from 'redux/notesSlice'
 import { RootState } from 'redux/types'
 import { Note } from 'API'
+import { useAppDispatch } from 'redux/store'
 
 export function Notes() {
-  console.log('note is')
-  const dispatch = useDispatch()
-
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(fetchNotes())
+    const promise = dispatch(fetchNotes())
+    return () => {
+      promise.abort()
+    }
   }, [dispatch])
 
   function handleCreate() {
@@ -51,9 +53,14 @@ export function Notes() {
   }
 
   return (
-    <div>
-      <button onClick={handleCreate}>Generate a random lorem ipsum note</button>
-      {renderNotes()}
-    </div>
+    <React.Fragment>
+      <h2>Notes (using AWS App Sync)</h2>
+      <div>
+        <button onClick={handleCreate}>
+          Generate a random lorem ipsum note
+        </button>
+        {renderNotes()}
+      </div>
+    </React.Fragment>
   )
 }

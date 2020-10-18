@@ -16,5 +16,13 @@
         }
       }
     }
+  },
+  "function": {
+    "pokemonfunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }

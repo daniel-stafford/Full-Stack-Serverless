@@ -12,10 +12,10 @@ export function Todo() {
   }
 
   return (
-    <>
-      <h2>Todo!</h2>
+    <React.Fragment>
+      <h2>Fetch a todo (Boring API call)</h2>
       <button onClick={handleGetTodo}>Get random todo</button>
       {todo?.data?.title}
-    </>
+    </React.Fragment>
   )
 }

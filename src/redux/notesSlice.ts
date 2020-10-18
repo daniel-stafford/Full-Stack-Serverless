@@ -104,7 +104,6 @@ export const notesSlice = createSlice({
       state.data.push(...action.payload)
       state.isLoading = false
     })
-
     builder.addCase(markCompleted.rejected, (state, action) => {
       state.isLoading = false
       state.hasErrors = action.error
