@@ -15,10 +15,24 @@
           "additionalAuthenticationProviders": []
         }
       }
+    },
+    "coinapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "coinfunction",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "function": {
-    "pokemonfunction": {
+    "coinfunction": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

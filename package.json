@@ -17,6 +17,7 @@
     "antd": "^4.7.0",
     "aws-amplify": "^3.3.4",
     "faker": "^5.1.0",
+    "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -28,8 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "amplify:pokemonfunction":  "cd amplify/backend/function/pokemonfunction/src && tsc"
-
+    "amplify:cryptofunction": "cd amplify/backend/function/cryptofunction/src && tsc"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.162",
     "@types/react-redux": "^7.1.9",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",

@@ -18,8 +18,15 @@ export type NotesState = {
   isLoading: boolean
 }
 
+export type CoinsState = {
+  data: object
+  hasErrors: object
+  isLoading: boolean
+}
+
 export type RootState = {
   counter: CounterState
   todo: TodoState
   notes: NotesState
+  crypto: CoinsState
 }

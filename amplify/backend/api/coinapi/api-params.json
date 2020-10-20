@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/coins",
+            "lambdaFunction": "coinfunction",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/coins"
+        }
+    ],
+    "resourceName": "coinapi",
+    "apiName": "coinapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "coinfunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-serverlessbook-dev-114305-authRole",
+        "unAuthRoleName": "amplify-serverlessbook-dev-114305-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "coinfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
