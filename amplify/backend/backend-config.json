@@ -38,5 +38,13 @@
       "service": "Lambda",
       "dependsOn": []
     }
+  },
+  "auth": {
+    "serverlessbookfa6ddc47": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
   }
 }

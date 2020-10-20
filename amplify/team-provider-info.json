@@ -10,6 +10,11 @@
       "StackName": "amplify-serverlessbook-dev-114305",
       "StackId": "arn:aws:cloudformation:us-east-1:844337442446:stack/amplify-serverlessbook-dev-114305/c861ec10-1054-11eb-a411-0a6641f83659",
       "AmplifyAppId": "d2ta27cpjyyinq"
+    },
+    "categories": {
+      "auth": {
+        "serverlessbookfa6ddc47": {}
+      }
     }
   }
 }

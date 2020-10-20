@@ -69,7 +69,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-serverlessbook-dev-114305-deployment",
-          "S3Key": "amplify-builds/coinfunction-7a75375463766272694d-build.zip"
+          "S3Key": "amplify-builds/coinfunction-656d6950684466303670-build.zip"
         }
       }
     },
