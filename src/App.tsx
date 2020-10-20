@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import {
   AmplifyAuthenticator,
+  AmplifyContainer,
   AmplifySignIn,
   AmplifySignUp,
 } from '@aws-amplify/ui-react'
@@ -57,19 +58,21 @@ export function App() {
       </Switch>
     </BrowserRouter>
   ) : (
-    <AmplifyAuthenticator usernameAlias="email">
-      <AmplifySignUp
-        headerText="Create an email (feel free to use a temporary email)"
-        slot="sign-up"
-        usernameAlias="email"
-        formFields={signUpFields}
-      ></AmplifySignUp>
-      <AmplifySignIn
-        headerText="Log in to fiddle with Amplify"
-        slot="sign-in"
-        usernameAlias="email"
-        formFields={signInFields}
-      ></AmplifySignIn>
-    </AmplifyAuthenticator>
+    <AmplifyContainer>
+      <AmplifyAuthenticator usernameAlias="email" style={{ marginTop: '50vh' }}>
+        <AmplifySignUp
+          headerText="Create an email (feel free to use a temporary email)"
+          slot="sign-up"
+          usernameAlias="email"
+          formFields={signUpFields}
+        ></AmplifySignUp>
+        <AmplifySignIn
+          headerText="Log in to fiddle with Amplify"
+          slot="sign-in"
+          usernameAlias="email"
+          formFields={signInFields}
+        ></AmplifySignIn>
+      </AmplifyAuthenticator>
+    </AmplifyContainer>
   )
 }
