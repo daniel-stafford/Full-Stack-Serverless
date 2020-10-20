@@ -14,7 +14,9 @@ export function Todo() {
   return (
     <React.Fragment>
       <h2>Fetch a todo (Boring API call)</h2>
-      <button onClick={handleGetTodo}>Get random todo</button>
+      <button style={{ width: '400px' }} onClick={handleGetTodo}>
+        Get random todo
+      </button>
       {todo?.data?.title}
     </React.Fragment>
   )

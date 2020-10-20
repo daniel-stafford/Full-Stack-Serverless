@@ -44,10 +44,11 @@ export function Notes() {
     return notesData.map((n) => (
       <div key={uuidv4()}>
         {n.name}
-        {console.log('n.completed', n.completed)}
-        {n.completed && 'is completed'}
+        {n.completed && ' <- is completed 😀'}
         <button onClick={() => handleDelete(n.id)}>Delete</button>
-        <button onClick={() => handleUpdate(n)}>Mark Completed</button>
+        <button disabled={!!n.completed} onClick={() => handleUpdate(n)}>
+          Mark Completed
+        </button>
       </div>
     ))
   }

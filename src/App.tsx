@@ -10,6 +10,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import { Home } from 'pages/Home'
 import 'app.css'
+import { useAppDispatch } from 'redux/store'
+import { authSlice } from 'redux/authSlice'
+import { RootState } from 'redux/types'
+import { useSelector } from 'react-redux'
 
 const signInFields = [
   {
@@ -41,17 +45,17 @@ const signUpFields = [
 ]
 
 export function App() {
-  const [authState, setAuthState] = React.useState<AuthState>()
-  const [user, setUser] = React.useState<object | undefined>()
+  const dispatch = useAppDispatch()
+  const { auth, user } = useSelector((state: RootState) => state.auth)
 
   useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
-      setAuthState(nextAuthState)
-      setUser(authData)
+      dispatch(authSlice.actions.addAuth(nextAuthState))
+      authData && dispatch(authSlice.actions.addUser(authData))
     })
-  }, [])
+  }, [dispatch])
 
-  return authState === AuthState.SignedIn && user ? (
+  return auth === AuthState.SignedIn && user ? (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home} />

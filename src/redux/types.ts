@@ -1,4 +1,5 @@
 import { Note } from 'API'
+import { AuthState } from '@aws-amplify/ui-components'
 
 export type TodoState = {
   isLoading: boolean
@@ -24,9 +25,15 @@ export type CoinsState = {
   isLoading: boolean
 }
 
+export type AuthorizationState = {
+  auth: AuthState | object
+  user: object
+}
+
 export type RootState = {
   counter: CounterState
   todo: TodoState
   notes: NotesState
   crypto: CoinsState
+  auth: AuthorizationState
 }

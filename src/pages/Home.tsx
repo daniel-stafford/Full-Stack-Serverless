@@ -3,15 +3,24 @@ import React from 'react'
 import { Coins } from 'components/Coins'
 import { Notes } from 'components/Notes'
 import { Todo } from 'components/Todo'
-import { Signout } from 'components/Signout'
+import { SignOut } from 'components/Signout'
 
 export function Home() {
   return (
-    <React.Fragment>
-      <Todo />
-      <Notes />
-      <Coins />
-      <Signout />
-    </React.Fragment>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '90vh',
+      }}
+    >
+      <div>
+        <Todo />
+        <Notes />
+        <Coins />
+      </div>
+      <SignOut />
+    </div>
   )
 }
