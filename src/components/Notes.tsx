@@ -55,7 +55,7 @@ export function Notes() {
 
   return (
     <React.Fragment>
-      <h2>Notes (using AWS App Sync)</h2>
+      <h2>Notes (using AWS AppSync + DynamoDB + Optimistic Response)</h2>
       <div>
         <button onClick={handleCreate}>
           Generate a random lorem ipsum note

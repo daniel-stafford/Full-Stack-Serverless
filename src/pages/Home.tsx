@@ -12,7 +12,10 @@ export function Home() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: '90vh',
+        alignItems: 'center',
+        height: '95vh',
+        width: '100%',
+        textAlign: 'center',
       }}
     >
       <div>

@@ -7,10 +7,10 @@ const initialState: AuthorizationState = {
   user: {},
 }
 export const authSlice = createSlice({
-  name: 'authSlice',
+  name: 'auth',
   initialState,
   reducers: {
-    addAuth: (state, { payload }: PayloadAction<AuthState>) => {
+    addAuthStatus: (state, { payload }: PayloadAction<AuthState>) => {
       state.auth = payload
     },
     addUser: (state, { payload }: PayloadAction<{}>) => {

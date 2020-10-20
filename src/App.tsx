@@ -9,11 +9,11 @@ import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import { Home } from 'pages/Home'
-import 'app.css'
 import { useAppDispatch } from 'redux/store'
 import { authSlice } from 'redux/authSlice'
 import { RootState } from 'redux/types'
 import { useSelector } from 'react-redux'
+import 'app.css'
 
 const signInFields = [
   {
@@ -50,7 +50,7 @@ export function App() {
 
   useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
-      dispatch(authSlice.actions.addAuth(nextAuthState))
+      dispatch(authSlice.actions.addAuthStatus(nextAuthState))
       authData && dispatch(authSlice.actions.addUser(authData))
     })
   }, [dispatch])

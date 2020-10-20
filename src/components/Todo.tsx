@@ -17,7 +17,7 @@ export function Todo() {
       <button style={{ width: '400px' }} onClick={handleGetTodo}>
         Get random todo
       </button>
-      {todo?.data?.title}
+      <div>{todo?.data?.title}</div>
     </React.Fragment>
   )
 }
